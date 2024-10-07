@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "win_auto_tiny"
-version = "0.1.0"
+version = "0.1.1"
 description = "A lightweight Python library for automating Windows GUI tasks, featuring simple functions to run applications, find windows, click, and type text."
 authors = ["th yoo <taihyungyoo@gmail.com>"]
 license = "MIT"
@@ -10,7 +10,7 @@ keywords = ["win32", "automation", "lightweight", "GUI", "windows", "mouse", "ke
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pywin32 = {version = "^307", platform = "win32"}
+pywin32 = {version = ">= 300", platform = "win32"}
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"
