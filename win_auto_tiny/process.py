@@ -14,9 +14,10 @@ def execute(exe_path: str, *args: str) -> Optional[subprocess.Popen]:
         Optional[subprocess.Popen]: A Popen object representing the running process, or None if the process could not be started.
     """
     try:
+        creationflags = subprocess.CREATE_NEW_PROCESS_GROUP if platform.system() == 'Windows' else 0
         return subprocess.Popen(
             [exe_path] + list(args),
-            creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if platform.system() == 'Windows' else 0
+            creationflags=creationflags|subprocess.CREATE_NO_WINDOW
         )
     except Exception as e:
         print(f"Error starting process: {e}")
@@ -47,7 +48,13 @@ def kill(exe_name: str):
             null_device = '/dev/null'
 
         with open(null_device, 'w') as devnull:
-            process = subprocess.Popen(command, stdout=devnull, stderr=devnull)
+            process = subprocess.Popen(
+                command,
+                stdout=devnull,
+                stderr=devnull,
+                creationflags=subprocess.CREATE_NO_WINDOW
+            )
+
             process.wait()
     except Exception as e:
         print(f"Error killing process: {e}")
